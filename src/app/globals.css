@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-ink-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-ink-950 text-white/90 font-body antialiased;
+  }
+  ::selection {
+    @apply bg-signal/30 text-white;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+  }
+  :focus-visible {
+    outline: 2px solid theme("colors.signal.DEFAULT");
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply relative bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-2xl shadow-glass;
+  }
+
+  .glass-panel::before {
+    content: "";
+    @apply absolute inset-0 rounded-2xl pointer-events-none;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.06) 0%,
+      transparent 40%
+    );
+  }
+
+  .eyebrow {
+    @apply font-mono text-[11px] tracking-[0.28em] uppercase text-signal/80;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-signal text-ink-950 font-semibold px-6 py-3
+      transition-all duration-200 hover:shadow-glow-signal hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/15 text-white/90 font-medium px-6 py-3
+      transition-all duration-200 hover:bg-white/[0.06] hover:border-white/30;
+  }
+
+  .btn-water {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-water text-ink-950 font-semibold px-6 py-3
+      transition-all duration-200 hover:shadow-glow-water hover:-translate-y-0.5;
+  }
+
+  .input-field {
+    @apply w-full rounded-xl bg-white/[0.04] border border-white/10 px-4 py-3 text-sm text-white
+      placeholder:text-white/35 focus:border-signal/60 focus:bg-white/[0.06] outline-none transition-colors;
+  }
+
+  .label-field {
+    @apply block text-xs font-medium uppercase tracking-wide text-white/50 mb-1.5;
+  }
+}
+
+@media print {
+  body {
+    background: white !important;
+  }
+}
