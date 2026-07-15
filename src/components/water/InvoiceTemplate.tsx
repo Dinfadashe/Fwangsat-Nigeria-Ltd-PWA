@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { formatDate, formatNaira } from "@/lib/utils";
 import type { WaterInvoice } from "@/lib/types";
-import { SITE } from "@/lib/constants";
+import { SITE, BANK_DETAILS } from "@/lib/constants";
 
 /**
  * Rendered on a white background (not the app's dark theme) since this is
@@ -98,7 +98,25 @@ export function InvoiceTemplate({
         </div>
       </div>
 
-      <p className="text-[11px] text-[#999] mt-10 text-center">
+      <div className="mt-8 pt-5 border-t border-[#eee]">
+        <p className="text-[10px] uppercase tracking-wide text-[#888] mb-2">Payment details</p>
+        <div className="grid grid-cols-3 gap-4 text-[12px]">
+          <div>
+            <p className="text-[#888]">Bank</p>
+            <p className="font-medium">{BANK_DETAILS.bankName}</p>
+          </div>
+          <div>
+            <p className="text-[#888]">Account number</p>
+            <p className="font-medium font-mono">{BANK_DETAILS.accountNumber}</p>
+          </div>
+          <div>
+            <p className="text-[#888]">Account name</p>
+            <p className="font-medium">{BANK_DETAILS.accountName}</p>
+          </div>
+        </div>
+      </div>
+
+      <p className="text-[11px] text-[#999] mt-6 text-center">
         Thank you for choosing Swan Water — a Fwangsat Ventures product.
       </p>
     </div>

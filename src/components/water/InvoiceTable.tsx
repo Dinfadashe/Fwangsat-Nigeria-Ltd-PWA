@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Download, CheckCircle2, Loader2, Receipt as ReceiptIcon } from "lucide-react";
+import { Download, Printer, CheckCircle2, Loader2, Receipt as ReceiptIcon } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { downloadNodeAsPng } from "@/lib/png-export";
 import { formatDate, formatNaira } from "@/lib/utils";
@@ -16,11 +16,18 @@ export function InvoiceTable({ invoices, canManage }: { invoices: WaterInvoice[]
   const [busyId, setBusyId] = useState<string | null>(null);
   const [previewing, setPreviewing] = useState<WaterInvoice | null>(null);
 
-  async function markPaid(invoiceId: string) {
-    setBusyId(invoiceId);
+  async function markPaid(invoice: WaterInvoice) {
+    setBusyId(invoice.id);
     const supabase = createClient();
-    await supabase.rpc("fn_mark_invoice_paid", { p_invoice_id: invoiceId });
+    const { data } = await supabase.rpc("fn_mark_invoice_paid", { p_invoice_id: invoice.id });
     setBusyId(null);
+
+    const updated: WaterInvoice =
+      data && Array.isArray(data) && data[0]
+        ? { ...invoice, ...data[0] }
+        : { ...invoice, status: "paid", paid_at: new Date().toISOString() };
+
+    setPreviewing(updated);
     router.refresh();
   }
 
@@ -44,7 +51,7 @@ export function InvoiceTable({ invoices, canManage }: { invoices: WaterInvoice[]
               {canManage && inv.status === "unpaid" && (
                 <button
                   disabled={busyId === inv.id}
-                  onClick={() => markPaid(inv.id)}
+                  onClick={() => markPaid(inv)}
                   className="flex items-center gap-1.5 text-xs font-medium px-3 py-2 rounded-full bg-signal text-ink-950"
                 >
                   {busyId === inv.id ? <Loader2 className="animate-spin" size={13} /> : <CheckCircle2 size={13} />}
@@ -68,30 +75,56 @@ export function InvoiceTable({ invoices, canManage }: { invoices: WaterInvoice[]
 }
 
 function InvoicePreviewModal({ invoice, onClose }: { invoice: WaterInvoice | null; onClose: () => void }) {
-  const ref = useRef<HTMLDivElement>(null);
+  const exportRef = useRef<HTMLDivElement>(null);
   const [downloading, setDownloading] = useState(false);
   const variant = invoice?.status === "paid" ? "receipt" : "invoice";
 
   async function handleDownload() {
-    if (!ref.current || !invoice) return;
+    if (!exportRef.current || !invoice) return;
     setDownloading(true);
-    await downloadNodeAsPng(ref.current, `${variant === "receipt" ? invoice.receipt_no : invoice.invoice_no}`);
+    await downloadNodeAsPng(exportRef.current, `${variant === "receipt" ? invoice.receipt_no : invoice.invoice_no}`);
     setDownloading(false);
   }
 
+  function handlePrint() {
+    window.print();
+  }
+
   return (
-    <Modal open={!!invoice} onClose={onClose} title={variant === "receipt" ? "Receipt" : "Invoice"} maxWidth="max-w-2xl">
+    <Modal open={!!invoice} onClose={onClose} title={variant === "receipt" ? "Receipt" : "Invoice"} maxWidth="max-w-3xl">
       {invoice && (
         <div className="flex flex-col gap-5">
+          {/* Visible, on-screen preview — free to scroll on small screens */}
           <div className="overflow-x-auto rounded-xl">
-            <div ref={ref}>
+            <div id="printable-invoice">
               <InvoiceTemplate invoice={invoice} variant={variant} />
             </div>
           </div>
-          <button onClick={handleDownload} disabled={downloading} className="btn-primary w-full">
-            {downloading ? <Loader2 className="animate-spin" size={16} /> : <Download size={16} />}
-            Download as PNG
-          </button>
+
+          {/* Hidden, full-size copy used ONLY for PNG export — never clipped or scrolled */}
+          <div
+            style={{
+              position: "fixed",
+              top: 0,
+              left: "-9999px",
+              pointerEvents: "none",
+            }}
+            aria-hidden="true"
+          >
+            <div ref={exportRef}>
+              <InvoiceTemplate invoice={invoice} variant={variant} />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3 print:hidden">
+            <button onClick={handlePrint} className="btn-secondary w-full">
+              <Printer size={16} /> Print
+            </button>
+            <button onClick={handleDownload} disabled={downloading} className="btn-primary w-full">
+              {downloading ? <Loader2 className="animate-spin" size={16} /> : <Download size={16} />}
+              Download PNG
+            </button>
+          </div>
         </div>
       )}
     </Modal>

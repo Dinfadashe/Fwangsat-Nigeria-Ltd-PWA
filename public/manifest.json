@@ -1,0 +1,22 @@
+{
+  "name": "Fwangsat Nexus",
+  "short_name": "Fwangsat",
+  "description": "Fwangsat Ventures Nigeria Ltd — Real Estate & Swan Water command center",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0A0F0D",
+  "theme_color": "#0A0F0D",
+  "icons": [
+    {
+      "src": "/logo-icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

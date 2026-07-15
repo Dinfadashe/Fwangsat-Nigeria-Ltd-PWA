@@ -1,11 +1,13 @@
-import { SiteHeader } from "@/components/layout/SiteHeader";
+﻿import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { PropertyCard } from "@/components/properties/PropertyCard";
 import { createClient } from "@/lib/supabase/server";
 import type { Property } from "@/lib/types";
 import Link from "next/link";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { SlidersHorizontal } from "lucide-react";
+import { STOCK_IMAGES } from "@/lib/media";
 
 export const revalidate = 15;
 
@@ -43,8 +45,19 @@ export default async function PropertiesPage({
     <div className="min-h-screen bg-ink-950">
       <SiteHeader />
 
-      <section className="bg-mesh-emerald border-b border-white/[0.06]">
-        <div className="mx-auto max-w-7xl px-5 md:px-8 py-14">
+      <section className="relative overflow-hidden border-b border-white/[0.06]">
+        <div className="absolute inset-0">
+          <Image
+            src={STOCK_IMAGES.roadConstruction}
+            alt=""
+            fill
+            className="object-cover opacity-15"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-ink-950/70 via-ink-950/90 to-ink-950" />
+        </div>
+        <div className="absolute inset-0 bg-mesh-emerald" />
+        <div className="mx-auto max-w-7xl px-5 md:px-8 py-14 relative">
           <span className="eyebrow">Verified inventory</span>
           <h1 className="font-display text-3xl md:text-4xl font-semibold text-white mt-2">
             Properties for sale &amp; rent

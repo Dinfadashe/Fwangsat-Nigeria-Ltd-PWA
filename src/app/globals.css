@@ -31,13 +31,24 @@
     outline-offset: 2px;
     border-radius: 4px;
   }
+
+  /* Respect users who've asked their OS to reduce motion (WCAG 2.2) */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 @layer components {
   .glass-panel {
     @apply relative bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-2xl shadow-glass;
   }
-
   .glass-panel::before {
     content: "";
     @apply absolute inset-0 rounded-2xl pointer-events-none;
@@ -47,38 +58,63 @@
       transparent 40%
     );
   }
-
   .eyebrow {
     @apply font-mono text-[11px] tracking-[0.28em] uppercase text-signal/80;
   }
-
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2 rounded-full bg-signal text-ink-950 font-semibold px-6 py-3
-      transition-all duration-200 hover:shadow-glow-signal hover:-translate-y-0.5 active:translate-y-0;
+      transition-all duration-200 hover:shadow-glow-signal hover:-translate-y-0.5 active:translate-y-0
+      min-h-[44px];
   }
-
   .btn-secondary {
     @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/15 text-white/90 font-medium px-6 py-3
-      transition-all duration-200 hover:bg-white/[0.06] hover:border-white/30;
+      transition-all duration-200 hover:bg-white/[0.06] hover:border-white/30
+      min-h-[44px];
   }
-
   .btn-water {
     @apply inline-flex items-center justify-center gap-2 rounded-full bg-water text-ink-950 font-semibold px-6 py-3
-      transition-all duration-200 hover:shadow-glow-water hover:-translate-y-0.5;
+      transition-all duration-200 hover:shadow-glow-water hover:-translate-y-0.5
+      min-h-[44px];
   }
-
   .input-field {
     @apply w-full rounded-xl bg-white/[0.04] border border-white/10 px-4 py-3 text-sm text-white
-      placeholder:text-white/35 focus:border-signal/60 focus:bg-white/[0.06] outline-none transition-colors;
+      placeholder:text-white/35 focus:border-signal/60 focus:bg-white/[0.06] outline-none transition-colors
+      min-h-[44px];
   }
-
   .label-field {
     @apply block text-xs font-medium uppercase tracking-wide text-white/50 mb-1.5;
+  }
+
+  /* Visually hidden until keyboard-focused — the "Skip to content" link */
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100]
+      focus:bg-signal focus:text-ink-950 focus:px-4 focus:py-2.5 focus:rounded-full
+      focus:font-semibold focus:text-sm;
+  }
+}
+
+@layer utilities {
+  /* Applied to <body> via JS while a Modal is open, to stop background scroll */
+  .scroll-locked {
+    overflow: hidden;
   }
 }
 
 @media print {
   body {
     background: white !important;
+  }
+  body * {
+    visibility: hidden;
+  }
+  #printable-invoice,
+  #printable-invoice * {
+    visibility: visible;
+  }
+  #printable-invoice {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
   }
 }

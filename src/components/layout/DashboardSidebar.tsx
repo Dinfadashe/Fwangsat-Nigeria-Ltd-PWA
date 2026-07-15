@@ -1,11 +1,11 @@
 "use client";
-
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import type { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ROLE_LABEL } from "@/lib/constants";
+import { getNavForRole } from "@/lib/dashboard-nav";
 import type { UserRole } from "@/lib/types";
 
 export interface NavItem {
@@ -15,16 +15,13 @@ export interface NavItem {
 }
 
 export function DashboardSidebar({
-  items,
   role,
   name,
 }: {
-  items: NavItem[];
   role: UserRole;
   name: string;
 }) {
   const pathname = usePathname();
-
   return (
     <aside className="hidden md:flex flex-col w-64 shrink-0 border-r border-white/[0.06] bg-ink-900/60 h-screen sticky top-0">
       <div className="flex items-center gap-3 px-6 h-20 border-b border-white/[0.06]">
@@ -36,9 +33,8 @@ export function DashboardSidebar({
           <p className="text-[10px] font-mono uppercase tracking-widest text-signal">Nexus</p>
         </div>
       </div>
-
       <nav className="flex-1 overflow-y-auto px-3 py-6 flex flex-col gap-1">
-        {items.map((item) => {
+        {getNavForRole(role).map((item) => {
           const active = pathname === item.href || pathname?.startsWith(item.href + "/");
           const Icon = item.icon;
           return (
@@ -58,7 +54,6 @@ export function DashboardSidebar({
           );
         })}
       </nav>
-
       <div className="px-4 py-5 border-t border-white/[0.06]">
         <div className="glass-panel !bg-white/[0.02] px-3.5 py-3 flex items-center gap-3">
           <span className="h-9 w-9 rounded-full bg-signal/15 text-signal grid place-items-center font-display font-semibold text-sm">
