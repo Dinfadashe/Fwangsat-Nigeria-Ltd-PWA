@@ -172,7 +172,7 @@ export default function AboutPage() {
 
       {/* OUR PROFESSIONALS */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 pb-24">
-        <span className="eyebrow">Who's behind the work</span>
+        <span className="eyebrow">Who&apos;s behind the work</span>
         <h2 className="font-display text-2xl md:text-3xl font-semibold text-white mt-2 mb-10">
           Our Professionals
         </h2>
