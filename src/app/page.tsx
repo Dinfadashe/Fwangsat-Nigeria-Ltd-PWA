@@ -60,10 +60,10 @@ export default async function HomePage() {
           </h1>
 
           <p className="mt-6 text-white/55 leading-relaxed text-[clamp(0.95rem,2vw,1.15rem)] max-w-xl">
-            Fwangsat Ventures Nigeria Ltd builds affordable housing with basic amenities,
-            constructs roads and high-rise buildings, drills boreholes, and supplies
-            sustainable, portable water to rural and urban communities across Nigeria.
-            Every listing here is checked by our professionals before it goes live.
+            Fwangsat Ventures Nigeria Ltd develops smart and affordable housing with essential
+            amenities, constructs roads and high-rise buildings, drills boreholes, and provides
+            sustainable potable water to rural and urban communities across Nigeria. Every listing
+            is professionally verified before it goes live.
           </p>
 
           <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
@@ -186,8 +186,8 @@ export default async function HomePage() {
           <div className="glass-panel overflow-hidden flex flex-col">
             <div className="relative h-48 w-full">
               <Image
-                src="https://images.unsplash.com/photo-1733947313015-e7000aebda5d?fm=jpg&q=80&w=1200&auto=format&fit=crop"
-                alt="Borehole and water infrastructure"
+                src="/images/borehole-rig-truck.jpg"
+                alt="Fwangsat Ventures borehole drilling rig on site"
                 fill
                 className="object-cover"
               />

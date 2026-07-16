@@ -48,8 +48,8 @@ const SERVICES = [
     tag: "Water",
     title: "Borehole Drilling",
     desc: "Sustainable, portable water supply for rural and urban communities across Nigeria — from initial site survey and hydrogeological assessment through drilling, casing, and commissioning. Clean water access is core to what we build, not a side project.",
-    image: "https://images.unsplash.com/photo-1733947313015-e7000aebda5d?fm=jpg&q=80&w=1400&auto=format&fit=crop",
-    alt: "Borehole and water infrastructure equipment on site",
+    image: "/images/borehole-drilling-action.jpg",
+    alt: "Fwangsat Ventures team drilling a borehole on site",
   },
   {
     icon: Handshake,
@@ -66,7 +66,6 @@ const SERVICES = [
     desc: "As the official distributor of Swan Natural Spring Water, we supply retail bottles and bulk orders — 50cl, 75cl, and 150cl — to homes, offices, events, and retailers nationwide, dispatched daily on our own logistics fleet from our depot in Jos.",
     image: "/swan/swan-lifestyle-green.jpg",
     alt: "Swan Natural Spring Water bottle and glass",
-    isLocal: true,
   },
 ];
 
