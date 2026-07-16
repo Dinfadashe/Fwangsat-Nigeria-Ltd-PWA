@@ -1,22 +1,13 @@
 ﻿import Image from "next/image";
 import Link from "next/link";
-import {
-  ArrowUpRight,
-  Target,
-  Eye,
-  HeartHandshake,
-  ShieldCheck,
-  Award,
-  Building2,
-  MapPin,
-} from "lucide-react";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { STOCK_IMAGES } from "@/lib/media";
 import { LOCATIONS } from "@/lib/constants";
+import { Target, Eye, ShieldCheck, Award, HeartHandshake, MapPin, ArrowUpRight, Building2, FileText } from "lucide-react";
 
 export const metadata = {
-  title: "About Us — Fwangsat Ventures Nigeria Ltd",
+  title: "About Us - Fwangsat Ventures Nigeria Ltd",
   description:
     "Fwangsat Ventures Nigeria Ltd is a registered contractor delivering affordable housing, infrastructure and sustainable water supply to communities across Nigeria since 2023.",
 };
@@ -48,12 +39,12 @@ const PROFESSIONALS = [
   {
     name: "Penuel Satmark",
     role: "Chief Executive Officer",
-    qualification: "B.Sc. Estate Surveying & Valuation, University of Jos",
+    qualification: "B.Sc. Estate Surveying and Valuation, University of Jos",
   },
   {
     name: "Pwajok Joseph Dung",
     role: "Architect",
-    qualification: "M.Sc. Architecture · Registered with the Architects Registration Council of Nigeria",
+    qualification: "M.Sc. Architecture - Registered with the Architects Registration Council of Nigeria",
   },
   {
     name: "Nganjiwa Godwin Elijah",
@@ -66,8 +57,6 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-ink-950">
       <SiteHeader />
-
-      {/* HERO */}
       <section className="relative overflow-hidden border-b border-white/[0.06]">
         <div className="absolute inset-0">
           <Image
@@ -88,12 +77,20 @@ export default function AboutPage() {
           </h1>
           <p className="text-white/50 mt-5 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
             A registered Medium Works contractor delivering affordable housing, infrastructure and
-            sustainable water supply — trusted across Nigeria since 2023.
+            sustainable water supply - trusted across Nigeria since 2023.
           </p>
+          
+          <a
+            href="/fwangsat-company-profile.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-secondary mt-7 inline-flex"
+          >
+            <FileText size={16} aria-hidden="true" /> Read Our Profile
+          </a>
         </div>
       </section>
 
-      {/* OUR STORY */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-24 grid md:grid-cols-2 gap-12 items-center">
         <div>
           <span className="eyebrow">Our story</span>
@@ -124,7 +121,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* MISSION / VISION */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 pb-24 grid md:grid-cols-2 gap-5">
         <div className="glass-panel p-8">
           <span className="grid place-items-center h-11 w-11 rounded-xl bg-signal/10 text-signal mb-5">
@@ -133,7 +129,7 @@ export default function AboutPage() {
           <h3 className="font-display text-lg font-semibold text-white mb-3">Our Mission</h3>
           <p className="text-sm text-white/50 leading-relaxed">
             To provide exceptional construction services that contribute to the sustainable development
-            of communities across Nigeria — delivering innovative, cost-effective solutions, maintaining
+            of communities across Nigeria - delivering innovative, cost-effective solutions, maintaining
             the highest standards of quality and safety, and building long-lasting relationships with our
             clients, partners, and stakeholders.
           </p>
@@ -151,7 +147,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* VALUES */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 pb-24">
         <span className="eyebrow">What guides us</span>
         <h2 className="font-display text-2xl md:text-3xl font-semibold text-white mt-2 mb-10">
@@ -170,9 +165,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* OUR PROFESSIONALS */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 pb-24">
-        <span className="eyebrow">Who&apos;s behind the work</span>
+        <span className="eyebrow">Who works here</span>
         <h2 className="font-display text-2xl md:text-3xl font-semibold text-white mt-2 mb-10">
           Our Professionals
         </h2>
@@ -192,7 +186,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* CERTIFICATIONS */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 pb-24">
         <div className="glass-panel p-8 md:p-12">
           <span className="eyebrow">Fully compliant</span>
@@ -219,7 +212,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* LOCATIONS */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 pb-24">
         <span className="eyebrow">Nationwide presence</span>
         <h2 className="font-display text-2xl md:text-3xl font-semibold text-white mt-2 mb-10">
@@ -240,7 +232,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 pb-24">
         <div className="glass-panel p-8 md:p-14 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left bg-water/[0.04]">
           <div>
